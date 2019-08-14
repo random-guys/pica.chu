@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+    <ImageView
+            android:id="@+id/icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:src="@color/fruity_green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/initials"/>
+
+    <TextView android:id="@+id/initials"
+              android:textColor="@color/white"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/initials"
+              app:layout_constraintEnd_toEndOf="@+id/icon"
+              app:layout_constraintStart_toStartOf="@+id/icon"
+              app:layout_constraintBottom_toBottomOf="@+id/icon"
+              app:layout_constraintTop_toTopOf="@+id/icon"/>
+
+    <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:textColor="@color/black"
+            android:text="@string/raymond_tukpe"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/icon"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"/>
+
+    <TextView
+            android:id="@+id/label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="@string/_08124329064"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintHorizontal_bias="0.0"
+            tools:ignore="SmallSp" android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="24dp"
+            app:layout_constraintStart_toEndOf="@+id/icon" app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
