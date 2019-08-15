@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 class SelectContactAdapter(private val mContext: Context) : RecyclerView.Adapter<BaseViewHolder>() {
 
     private val contacts: ArrayList<Contact> = ArrayList()
-    lateinit var mRecyclerViewClickListener: RecyclerViewClickListener
+    lateinit var mContactSelectedListener: ContactSelectedListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val view: View?
         return when (viewType) {
             VIEW_TYPE_NORMAL -> {
                 view = LayoutInflater.from(mContext).inflate(R.layout.contact_item, parent, false)
-                ViewHolder(view, mRecyclerViewClickListener)
+                ViewHolder(view, mContactSelectedListener)
             }
             else -> {
                 view = LayoutInflater.from(mContext).inflate(R.layout.layout_empty_view, parent, false)
@@ -67,7 +67,7 @@ class SelectContactAdapter(private val mContext: Context) : RecyclerView.Adapter
         }
     }
 
-    inner class ViewHolder(itemView: View, private var recyclerViewClickListener: RecyclerViewClickListener) :
+    inner class ViewHolder(itemView: View, private var contactSelectedListener: ContactSelectedListener) :
         BaseViewHolder(itemView) {
 
         private val contactTitleLabelIconView: TitleLabelIconView = itemView.findViewById(R.id.contact)
@@ -83,7 +83,7 @@ class SelectContactAdapter(private val mContext: Context) : RecyclerView.Adapter
             }
 
             contactTitleLabelIconView.setOnClickListener {
-                recyclerViewClickListener.recyclerViewItemClicked(it, adapterPosition)
+                contactSelectedListener.onContactSelected(it, adapterPosition)
             }
         }
     }

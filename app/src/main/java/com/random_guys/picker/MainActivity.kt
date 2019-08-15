@@ -7,11 +7,11 @@ import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.random_guys.pica.Pica
-import com.random_guys.pica.RecyclerViewClickListener
+import com.random_guys.pica.ContactSelectedListener
 import com.random_guys.pica.SelectContactAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), RecyclerViewClickListener {
+class MainActivity : AppCompatActivity(), ContactSelectedListener {
 
     private lateinit var contactAdapter: SelectContactAdapter
 
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewClickListener {
         setContentView(R.layout.activity_main)
 
         contactAdapter = SelectContactAdapter(this)
-        contactAdapter.mRecyclerViewClickListener = this
+        contactAdapter.mContactSelectedListener = this
         val pica = Pica(this)
         pica.chu { contactAdapter.add(it) }
 
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewClickListener {
         recyclerView.adapter = contactAdapter
     }
 
-    override fun recyclerViewItemClicked(v: View, position: Int) {
+    override fun onContactSelected(v: View, position: Int) {
         Toast.makeText(this, contactAdapter.get(position).toString(), LENGTH_SHORT).show()
     }
 }
