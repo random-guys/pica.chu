@@ -4,9 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import com.random_guys.rv.BaseViewHolder
+import com.random_guys.rv.RV
 
-class SelectContactAdapter(private val mContext: Context) : RecyclerView.Adapter<BaseViewHolder>() {
+class SelectContactAdapter(private val mContext: Context) : RV<BaseViewHolder>() {
 
     private val contacts: ArrayList<Contact> = ArrayList()
     lateinit var mContactSelectedListener: ContactSelectedListener
@@ -29,22 +30,18 @@ class SelectContactAdapter(private val mContext: Context) : RecyclerView.Adapter
 
     fun add(item: Contact) {
         contacts.add(item)
-        notifyDataSetChanged()
     }
 
     fun add(contacts: Collection<Contact>) {
         this.contacts.addAll(contacts)
-        notifyDataSetChanged()
     }
 
     fun remove(index: Int) {
         contacts.removeAt(index)
-        notifyDataSetChanged()
     }
 
     fun clear() {
         contacts.clear()
-        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
