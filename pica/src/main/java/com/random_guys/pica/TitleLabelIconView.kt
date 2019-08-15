@@ -20,27 +20,31 @@ class TitleLabelIconView(context: Context, attrs: AttributeSet) : ConstraintLayo
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.TitleLabelIconView, 0, 0)
-        val color = a.getColor(R.styleable.TitleLabelIconView_textColor, ContextCompat.getColor(context, R.color.black))
-        val drawable = a.getDrawable(R.styleable.TitleLabelIconView_drawable)
-        val initials = a.getString(R.styleable.TitleLabelIconView_initials)
-        val title = a.getString(R.styleable.TitleLabelIconView_title)
-        val label = a.getString(R.styleable.TitleLabelIconView_label)
+        val titleColor =
+            a.getColor(R.styleable.TitleLabelIconView_pica_title_color, ContextCompat.getColor(context, R.color.black))
+        val labelColor =
+            a.getColor(R.styleable.TitleLabelIconView_pica_label_color, ContextCompat.getColor(context, R.color.black))
+        val drawable = a.getDrawable(R.styleable.TitleLabelIconView_pica_drawable)
+        val initials = a.getString(R.styleable.TitleLabelIconView_pica_initials)
+        val title = a.getString(R.styleable.TitleLabelIconView_pica_title)
+        val label = a.getString(R.styleable.TitleLabelIconView_pica_label)
 
         LayoutInflater.from(context).inflate(R.layout.title_label_icon_view, this, true)
-        val root = this[0] as ConstraintLayout
+        val root = this as ConstraintLayout
 
-        mIconImageView = root[0] as ImageView
+        mIconImageView = root.findViewById(R.id.icon) as ImageView
         mIconImageView.setImageDrawable(drawable)
 
-        mInitialsTextView = root[1] as TextView
+        mInitialsTextView = root.findViewById(R.id.initials) as TextView
         mInitialsTextView.text = initials
 
-        mTitleTextView = root[2] as TextView
+        mTitleTextView = root.findViewById(R.id.title) as TextView
         mTitleTextView.text = title
-        mTitleTextView.setTextColor(color)
+        mTitleTextView.setTextColor(titleColor)
 
-        mLabelTextView = root[3] as TextView
+        mLabelTextView = root.findViewById(R.id.label) as TextView
         mLabelTextView.text = label
+        mLabelTextView.setTextColor(labelColor)
 
         a.recycle()
     }

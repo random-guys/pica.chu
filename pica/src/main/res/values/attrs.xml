@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="drawable" format="reference"/>
-    <attr name="textColor" format="color"/>
-    <attr name="initials" format="string"/>
-    <attr name="title" format="string"/>
-    <attr name="label" format="string"/>
+    <attr name="pica_title_color" format="string"/>
+    <attr name="pica_label_color" format="string"/>
+    <attr name="pica_drawable" format="reference"/>
+    <attr name="pica_initials" format="string"/>
+    <attr name="pica_title" format="string"/>
+    <attr name="pica_label" format="string"/>
 
     <declare-styleable name="TitleLabelIconView">
-        <attr name="textColor"/>
-        <attr name="drawable"/>
-        <attr name="initials"/>
-        <attr name="title"/>
-        <attr name="label"/>
+        <attr name="pica_title_color"/>
+        <attr name="pica_label_color"/>
+        <attr name="pica_drawable"/>
+        <attr name="pica_initials"/>
+        <attr name="pica_title"/>
+        <attr name="pica_label"/>
     </declare-styleable>
 </resources>
