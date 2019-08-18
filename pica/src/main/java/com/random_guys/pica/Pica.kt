@@ -2,12 +2,12 @@ package com.random_guys.pica
 
 import android.Manifest
 import android.app.Activity
-import android.content.ContentResolver
 import android.database.Cursor
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.loader.content.CursorLoader
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -58,10 +58,9 @@ class Pica(private val activity: Activity) {
             }).check()
     }
 
-    fun chu(callback: (contacts: ArrayList<Contact>) -> Unit) {
+    fun load(callback: (contacts: ArrayList<Contact>) -> Unit) {
         checkPermissions {
             val contacts = ArrayList<Contact>()
-            val contentResolver: ContentResolver = activity.baseContext.contentResolver
             val projectionFields = arrayOf(
                 ContactsContract.Data.HAS_PHONE_NUMBER,
                 Phone.DISPLAY_NAME,
@@ -69,13 +68,14 @@ class Pica(private val activity: Activity) {
                 Phone.TYPE
             )
 
-            val cursor: Cursor? = contentResolver.query(
+            val cursor: Cursor? = CursorLoader(
+                activity.baseContext,
                 Phone.CONTENT_URI,
                 projectionFields, // projection fields
                 null, // the selection criteria
                 null, // the selection args
                 Phone.DISPLAY_NAME + " ASC" // the sort order
-            )
+            ).loadInBackground()
 
             if (cursor == null || cursor.count <= 0) callback(ArrayList())
 
@@ -103,9 +103,11 @@ class Pica(private val activity: Activity) {
 
                     if (number.isNigerianNumber()) {
                         if (contactsMap[number] == null) {
-                            val contact = contactDisplayName?.let { Contact(number, it) }
-                            contact?.addNumber(number, phoneType.toString())
-                            contact?.let { contactsMap[number] = it }
+                            val contact = Contact()
+                            contact.id = number
+                            contact.name = contactDisplayName
+                            contact.addNumber(number, phoneType.toString())
+                            contactsMap[number] = contact
                         } else {
                             contactsMap[number]?.addNumber(number, phoneType.toString())
                         }

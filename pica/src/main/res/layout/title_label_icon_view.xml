@@ -8,8 +8,8 @@
 
     <ImageView
             android:id="@+id/icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="16dp"
             android:src="@color/fruity_green"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -34,6 +34,9 @@
             android:paddingBottom="4dp"
             android:textColor="@color/black"
             android:text="@string/raymond_tukpe"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/icon"
             app:layout_constraintTop_toTopOf="parent"
