@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Pica</string>
+    <string name="chu">Chu</string>
+    <string name="click_me">click me</string>
 </resources>
