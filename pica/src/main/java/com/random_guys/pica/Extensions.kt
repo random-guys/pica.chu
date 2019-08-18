@@ -1,5 +1,8 @@
 package com.random_guys.pica
 
+import android.view.View
+import androidx.annotation.IdRes
+
 fun String.initials(): String {
     if (this.isEmpty()) return ""
 
@@ -18,4 +21,9 @@ fun String.formatPhoneNumber(): String {
     return this.trim()
         .replace(" ", "")
         .replace("+234", "0")
+}
+
+fun <V : View> View.bind(@IdRes resource: Int): V {
+    val lazyValue: Lazy<V> = lazy { findViewById<V>(resource)!! }
+    return lazyValue.value
 }
