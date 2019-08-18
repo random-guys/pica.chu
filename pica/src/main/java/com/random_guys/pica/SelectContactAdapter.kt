@@ -28,20 +28,14 @@ class SelectContactAdapter(private val mContext: Context) : RV<BaseViewHolder>()
 
     fun get(position: Int): Contact = contacts[position]
 
-    fun add(item: Contact) {
-        contacts.add(item)
-    }
-
-    fun add(contacts: Collection<Contact>) {
+    fun addMany(contacts: Collection<Contact>, fn: () -> Unit) {
         this.contacts.addAll(contacts)
+        fn()
     }
 
-    fun remove(index: Int) {
-        contacts.removeAt(index)
-    }
-
-    fun clear() {
+    fun clear(fn: () -> Unit) {
         contacts.clear()
+        fn()
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
