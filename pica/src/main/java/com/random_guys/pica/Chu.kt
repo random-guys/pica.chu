@@ -44,8 +44,15 @@ class Chu(val mMainContacts: ArrayList<Contact>) : BottomSheetDialogFragment(),
             mContactAdapter.mContactSelectedListener = this
             mContactAdapter.loadMoreListener = this
 
-            // load contacts into adapter
-            mContactAdapter.addMany(mMainContacts.subList(0, 10)) { refreshAdapter() }
+            when(mMainContacts.size) {
+                in 0..9 -> {
+                    //load contacts into adapter
+                    mContactAdapter.addMany(mMainContacts) {refreshAdapter()}
+                }
+                else ->
+                    //load contacts into adapter
+                    mContactAdapter.addMany(mMainContacts.subList(0, 10)) { refreshAdapter() }
+            }
 
             mLinearLayoutManager = LinearLayoutManager(it.baseContext)
 
