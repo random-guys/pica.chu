@@ -1,6 +1,7 @@
 package com.random_guys.pica
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -66,6 +67,11 @@ class TitleLabelIconView(context: Context, attrs: AttributeSet) : ConstraintLayo
         set(value) {
             mLabelTextView.text = value
         }
+    var drawable: Drawable
+        get() = mIconImageView.drawable
+        set(value) {
+            mIconImageView.setImageDrawable(value)
+    }
 
     private operator fun ViewGroup.get(position: Int): View = getChildAt(position)
 }
