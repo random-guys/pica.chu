@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import com.random_guys.rv.BaseViewHolder
 import com.random_guys.rv.RV
 
-class SelectContactAdapter(private val mContext: Context) : RV<BaseViewHolder>() {
+class SelectContactAdapter(
+    private val mContext: Context,
+    private var mContactSelectedListener: ContactSelectedListener
+) : RV<BaseViewHolder>() {
 
     private val contacts: ArrayList<Contact> = ArrayList()
-    lateinit var mContactSelectedListener: ContactSelectedListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val view: View?
