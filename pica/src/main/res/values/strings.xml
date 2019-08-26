@@ -3,4 +3,6 @@
     <string name="_08124329064">08124329064</string>
     <string name="raymond_tukpe">Raymond Tukpe</string>
     <string name="initials">AA</string>
+    <string name="search_contacts">Search Contacts</string>
+    <string name="no_contact_found">No Contact found</string>
 </resources>
