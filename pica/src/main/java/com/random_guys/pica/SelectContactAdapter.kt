@@ -22,7 +22,8 @@ class SelectContactAdapter(
                 ViewHolder(view, mContactSelectedListener)
             }
             else -> {
-                view = LayoutInflater.from(mContext).inflate(R.layout.layout_empty_view, parent, false)
+                view =
+                    LayoutInflater.from(mContext).inflate(R.layout.layout_empty_view, parent, false)
                 EmptyViewHolder(view)
             }
         }
@@ -30,14 +31,14 @@ class SelectContactAdapter(
 
     fun get(position: Int): Contact = contacts[position]
 
-    fun addMany(contacts: Collection<Contact>, fn: () -> Unit) {
-        this.contacts.addAll(contacts)
-        fn()
+    fun addMany(contacts: Collection<Contact>) {
+        this.contacts.addAll(contacts.sortedBy { it.name })
+        notifyDataSetChanged()
     }
 
-    fun clear(fn: () -> Unit) {
+    fun clear() {
         contacts.clear()
-        fn()
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
@@ -60,10 +61,14 @@ class SelectContactAdapter(
         }
     }
 
-    inner class ViewHolder(itemView: View, private var contactSelectedListener: ContactSelectedListener) :
+    inner class ViewHolder(
+        itemView: View,
+        private var contactSelectedListener: ContactSelectedListener
+    ) :
         BaseViewHolder(itemView) {
 
-        private val contactTitleLabelIconView: TitleLabelIconView = itemView.findViewById(R.id.contact)
+        private val contactTitleLabelIconView: TitleLabelIconView =
+            itemView.findViewById(R.id.contact)
 
         override fun onBind(position: Int) {
             super.onBind(adapterPosition)
