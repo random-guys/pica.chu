@@ -2,14 +2,15 @@ package com.random_guys.pica
 
 import android.view.View
 import androidx.annotation.IdRes
+import java.util.*
 
 fun String.initials(): String {
     if (this.isEmpty()) return ""
 
     val parts = this.trim().split(" ")
     return when {
-        parts.size > 1 -> "${parts[0][0]}${parts[1][0]}".toUpperCase()
-        else -> "${parts[0][0]}".toUpperCase()
+        parts.size > 1 -> "${parts[0][0]}${parts[1][0]}".toUpperCase(Locale.ENGLISH)
+        else -> "${parts[0][0]}".toUpperCase(Locale.ENGLISH)
     }
 }
 

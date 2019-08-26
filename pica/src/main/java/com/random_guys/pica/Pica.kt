@@ -51,7 +51,8 @@ class Pica(private val activity: Activity) {
                         Toast.makeText(
                             activity.baseContext,
                             "These permissions: ${permissions.joinToString { "," }}" +
-                                    " have been denied. Please enabled them to continue", LENGTH_SHORT
+                                    " have been denied. Please enabled them to continue",
+                            LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -99,17 +100,18 @@ class Pica(private val activity: Activity) {
                     val number = cursor.getString(contactNumberColumnIndex).formatPhoneNumber()
 
                     val customLabel = "Custom"
-                    val phoneType = Phone.getTypeLabel(activity.baseContext.resources, type, customLabel)
+                    val phoneType =
+                        Phone.getTypeLabel(activity.baseContext.resources, type, customLabel)
 
                     if (number.isNigerianNumber()) {
                         if (contactsMap[number] == null) {
                             val contact = Contact()
-                            contact.id = number
-                            contact.name = contactDisplayName
-                            contact.addNumber(number, phoneType.toString())
+                            contact.id = number.trim()
+                            contact.name = contactDisplayName.trim()
+                            contact.addNumber(number, phoneType.toString().trim())
                             contactsMap[number] = contact
                         } else {
-                            contactsMap[number]?.addNumber(number, phoneType.toString())
+                            contactsMap[number]?.addNumber(number, phoneType.toString().trim())
                         }
                     }
 
