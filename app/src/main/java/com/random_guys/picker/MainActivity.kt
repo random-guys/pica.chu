@@ -12,7 +12,7 @@ import com.random_guys.pica.Contact
 import com.random_guys.pica.Pica
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), Chu.DismissListener, Chu.ContactClickListener {
+class MainActivity : AppCompatActivity(), Chu.ContactClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,13 +26,9 @@ class MainActivity : AppCompatActivity(), Chu.DismissListener, Chu.ContactClickL
             pica.load { contacts -> mMainContacts.addAll(contacts) }
 
             // open contacts picker
-            val chooser = Chu(mMainContacts, this, this)
+            val chooser = Chu(mMainContacts, this)
             chooser.show(supportFragmentManager, "")
         }
-    }
-
-    override fun onDismissed() {
-
     }
 
     override fun onContactClickListener(contact: Contact) {

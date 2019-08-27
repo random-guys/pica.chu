@@ -17,7 +17,6 @@ import java.util.*
 
 class Chu(
     private val mMainContacts: ArrayList<Contact>,
-    private val mDismissListener: DismissListener,
     private val mContactClickListener: ContactClickListener
 ) :
     BottomSheetDialogFragment(),
@@ -125,19 +124,6 @@ class Chu(
         }
     }
 
-    override fun dismiss() {
-        mDismissListener.onDismissed()
-        super.dismiss()
-    }
-
-    override fun onDismiss(dialog: DialogInterface?) {
-        mDismissListener.onDismissed()
-        super.onDismiss(dialog)
-    }
-
-    interface DismissListener {
-        fun onDismissed()
-    }
     interface ContactClickListener {
         fun onContactClickListener(contact: Contact)
     }
@@ -146,7 +132,6 @@ class Chu(
 
     override fun onContactSelected(v: View, position: Int) {
         mContactClickListener.onContactClickListener(mMainContacts[position])
-        mDismissListener.onDismissed()
         dismiss()
     }
 }
