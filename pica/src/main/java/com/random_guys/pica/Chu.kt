@@ -17,7 +17,7 @@ import java.util.*
 
 class Chu(
     private val mMainContacts: ArrayList<Contact>,
-    private val mDismissListener: DismissListener
+    private val mContactClickListener: ContactClickListener
 ) :
     BottomSheetDialogFragment(),
     ContactSelectedListener,
@@ -124,24 +124,14 @@ class Chu(
         }
     }
 
-    override fun dismiss() {
-        mDismissListener.onDismissed()
-        super.dismiss()
-    }
-
-    override fun onDismiss(dialog: DialogInterface?) {
-        mDismissListener.onDismissed()
-        super.onDismiss(dialog)
-    }
-
-    interface DismissListener {
-        fun onDismissed()
+    interface ContactClickListener {
+        fun onContactClickListener(contact: Contact)
     }
 
 //    private fun refreshAdapter() = mRecyclerView.post { mContactAdapter.notifyDataSetChanged() }
 
     override fun onContactSelected(v: View, position: Int) {
-        mDismissListener.onDismissed()
+        mContactClickListener.onContactClickListener(mMainContacts[position])
         dismiss()
     }
 }
