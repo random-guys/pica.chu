@@ -42,11 +42,10 @@ class Pica(private val activity: Activity) {
                             "Please allow ${permissions.toList().joinToString { "," }}, it has been permanently denied",
                             LENGTH_SHORT
                         ).show()
-
                     }
-                    if (report.areAllPermissionsGranted()) {
-                        callback()
-                    } else {
+
+                    if (report.areAllPermissionsGranted()) callback()
+                    else {
                         val permissions = report.deniedPermissionResponses.map { it.permissionName }
                         Toast.makeText(
                             activity.baseContext,
@@ -59,9 +58,9 @@ class Pica(private val activity: Activity) {
             }).check()
     }
 
-    fun load(callback: (contacts: ArrayList<Contact>) -> Unit) {
+    fun load(callback: (contacts: ArrayList<MainContact>) -> Unit) {
         checkPermissions {
-            val contacts = ArrayList<Contact>()
+            val contacts = ArrayList<MainContact>()
             val projectionFields = arrayOf(
                 ContactsContract.Data.HAS_PHONE_NUMBER,
                 Phone.DISPLAY_NAME,
@@ -80,13 +79,11 @@ class Pica(private val activity: Activity) {
 
             if (cursor == null || cursor.count <= 0) callback(ArrayList())
 
-            val contactsMap = HashMap<String, Contact>(cursor?.count!!)
+            val contactsMap = HashMap<String, MainContact>(cursor?.count!!)
 
-            val contactTypeColumnIndex = cursor.getColumnIndex(Phone.TYPE)
             val contactNumberColumnIndex = cursor.getColumnIndex(Phone.NUMBER)
             val nameIndex = cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME)
             val numberCount = cursor.getColumnIndex(ContactsContract.Data.HAS_PHONE_NUMBER)
-
 
             cursor.moveToFirst().let {
                 while (cursor.isAfterLast.not()) {
@@ -95,24 +92,15 @@ class Pica(private val activity: Activity) {
                     // Contact doesn't have any number's skip it.
                     if (hasNumber.not()) cursor.moveToNext()
 
-                    val type = cursor.getInt(contactTypeColumnIndex)
                     val contactDisplayName = cursor.getString(nameIndex)
                     val number = cursor.getString(contactNumberColumnIndex).formatPhoneNumber()
 
-                    val customLabel = "Custom"
-                    val phoneType =
-                        Phone.getTypeLabel(activity.baseContext.resources, type, customLabel)
-
                     if (number.isNigerianNumber()) {
-                        if (contactsMap[number] == null) {
-                            val contact = Contact()
-                            contact.id = number.trim()
-                            contact.name = contactDisplayName.trim()
-                            contact.addNumber(number, phoneType.toString().trim())
-                            contactsMap[number] = contact
-                        } else {
-                            contactsMap[number]?.addNumber(number, phoneType.toString().trim())
-                        }
+                        val contact = MainContact()
+                        contact.number = number.trim()
+                        contact.name = contactDisplayName.trim()
+                        contact.contactType = MainContact.MainContactType.Local
+                        contactsMap[number] = contact
                     }
 
                     cursor.moveToNext()

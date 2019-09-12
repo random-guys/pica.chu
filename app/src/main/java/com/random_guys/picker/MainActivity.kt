@@ -1,14 +1,10 @@
 package com.random_guys.picker
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.random_guys.pica.Chu
-import com.random_guys.pica.Contact
+import com.random_guys.pica.MainContact
 import com.random_guys.pica.Pica
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,7 +15,7 @@ class MainActivity : AppCompatActivity(), Chu.ContactClickListener {
         setContentView(R.layout.activity_main)
 
         button.setOnClickListener {
-            val mMainContacts = ArrayList<Contact>()
+            val mMainContacts = ArrayList<MainContact>()
 
             // load contacts
             val pica = Pica(this)
@@ -31,13 +27,7 @@ class MainActivity : AppCompatActivity(), Chu.ContactClickListener {
         }
     }
 
-    override fun onContactClickListener(contact: Contact) {
+    override fun onContactClickListener(contact: MainContact) {
         Toast.makeText(this, contact.name, Toast.LENGTH_LONG).show()
-    }
-
-    private fun hideKeyboard() {
-        val view: View? = currentFocus
-        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 }
