@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.random_guys.pica.TitleLabelIconView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/contact"
+        app:pica_drawable="@color/fruity_green"
+        app:pica_initials="@string/initials"
+        app:pica_label="@string/_08124329064"
+        app:pica_title="@string/raymond_tukpe"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
