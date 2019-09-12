@@ -58,9 +58,9 @@ class Pica(private val activity: Activity) {
             }).check()
     }
 
-    fun load(callback: (contacts: ArrayList<MainContact>) -> Unit) {
+    fun load(callback: (contacts: ArrayList<Contact>) -> Unit) {
         checkPermissions {
-            val contacts = ArrayList<MainContact>()
+            val contacts = ArrayList<Contact>()
             val projectionFields = arrayOf(
                 ContactsContract.Data.HAS_PHONE_NUMBER,
                 Phone.DISPLAY_NAME,
@@ -79,7 +79,7 @@ class Pica(private val activity: Activity) {
 
             if (cursor == null || cursor.count <= 0) callback(ArrayList())
 
-            val contactsMap = HashMap<String, MainContact>(cursor?.count!!)
+            val contactsMap = HashMap<String, Contact>(cursor?.count!!)
 
             val contactNumberColumnIndex = cursor.getColumnIndex(Phone.NUMBER)
             val nameIndex = cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME)
@@ -96,10 +96,10 @@ class Pica(private val activity: Activity) {
                     val number = cursor.getString(contactNumberColumnIndex).formatPhoneNumber()
 
                     if (number.isNigerianNumber()) {
-                        val contact = MainContact()
+                        val contact = Contact()
                         contact.number = number.trim()
                         contact.name = contactDisplayName.trim()
-                        contact.contactType = MainContact.MainContactType.Local
+                        contact.contactType = Contact.ContactType.Local
                         contactsMap[number] = contact
                     }
 

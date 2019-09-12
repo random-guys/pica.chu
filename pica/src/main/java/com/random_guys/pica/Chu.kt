@@ -15,11 +15,10 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import java.util.*
 
 class Chu(
-    private val mMainContacts: ArrayList<MainContact>,
+    private val mContacts: ArrayList<Contact>,
     private val mContactClickListener: ContactClickListener
 ) :
-    BottomSheetDialogFragment(),
-    ContactSelectedListener {
+    BottomSheetDialogFragment() {
 
     // region Views
     private lateinit var mRecyclerView: RecyclerView
@@ -27,8 +26,8 @@ class Chu(
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     // endregion
 
-    private lateinit var mFastAdapter: FastAdapter<MainContact>
-    private lateinit var mMainContactsAdapter: ItemAdapter<MainContact>
+    private lateinit var mFastAdapter: FastAdapter<Contact>
+    private lateinit var mContactsAdapter: ItemAdapter<Contact>
 
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
 
@@ -44,9 +43,9 @@ class Chu(
         activity?.let {
             bindViews(view)
 
-            mMainContactsAdapter = ItemAdapter()
-            mMainContactsAdapter.add(mMainContacts)
-            mFastAdapter = FastAdapter.with(mMainContactsAdapter)
+            mContactsAdapter = ItemAdapter()
+            mContactsAdapter.add(mContacts)
+            mFastAdapter = FastAdapter.with(mContactsAdapter)
 
             mLinearLayoutManager = LinearLayoutManager(it.baseContext)
 
@@ -65,13 +64,18 @@ class Chu(
     }
 
     private fun initSearchView() {
+        mFastAdapter.onClickListener = { _, _, item, _ ->
+            mContactClickListener.onContactClickListener(item)
+            false
+        }
+
         mSearchEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(query: Editable?) {
                 query?.toString()?.trim()?.let { _query ->
-                    mMainContactsAdapter.filter(_query)
-                    mMainContactsAdapter.itemFilter.filterPredicate =
-                        { item: MainContact, constraint: CharSequence? ->
-                            if (constraint.isNullOrEmpty()) mMainContactsAdapter.itemFilter.resetFilter()
+                    mContactsAdapter.filter(_query)
+                    mContactsAdapter.itemFilter.filterPredicate =
+                        { item: Contact, constraint: CharSequence? ->
+                            if (constraint.isNullOrEmpty()) mContactsAdapter.itemFilter.resetFilter()
                             item.name.contains(
                                 constraint.toString(),
                                 true
@@ -91,11 +95,6 @@ class Chu(
     }
 
     interface ContactClickListener {
-        fun onContactClickListener(contact: MainContact)
-    }
-
-    override fun onContactSelected(v: View, position: Int) {
-        mContactClickListener.onContactClickListener(mMainContacts[position])
-        dismiss()
+        fun onContactClickListener(contact: Contact)
     }
 }

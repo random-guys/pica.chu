@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.random_guys.pica.Chu
-import com.random_guys.pica.MainContact
+import com.random_guys.pica.Contact
 import com.random_guys.pica.Pica
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity(), Chu.ContactClickListener {
         setContentView(R.layout.activity_main)
 
         button.setOnClickListener {
-            val mMainContacts = ArrayList<MainContact>()
+            val mMainContacts = ArrayList<Contact>()
 
             // load contacts
             val pica = Pica(this)
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), Chu.ContactClickListener {
         }
     }
 
-    override fun onContactClickListener(contact: MainContact) {
+    override fun onContactClickListener(contact: Contact) {
         Toast.makeText(this, contact.name, Toast.LENGTH_LONG).show()
     }
 }
