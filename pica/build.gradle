@@ -29,16 +29,19 @@ android {
     }
 }
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.41"
-    implementation "androidx.core:core-ktx:1.0.2"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation "androidx.core:core-ktx:1.0.2"
     implementation 'com.karumi:dexter:4.2.0'
-    implementation 'com.random-guys:rv:0.0.1'
+
+    api "com.mikepenz:fastadapter:4.0.1"
+    api 'de.hdodenhof:circleimageview:3.0.0'
     api 'com.google.android.material:material:1.0.0'
+    api "com.mikepenz:fastadapter-extensions-scroll:4.0.1"
 }
 
 repositories {

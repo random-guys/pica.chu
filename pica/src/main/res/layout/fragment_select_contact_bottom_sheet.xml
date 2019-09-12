@@ -33,7 +33,7 @@
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-"
             android:drawablePadding="12dp"
             android:hint="@string/search_contacts"
-            android:inputType="text"
+            android:inputType="textVisiblePassword"
             android:paddingStart="56dp"
             android:paddingTop="16dp"
             android:paddingEnd="16dp"
