@@ -44,7 +44,7 @@ class Chu(
             bindViews(view)
 
             mContactsAdapter = ItemAdapter()
-            mContactsAdapter.add(mContacts)
+            mContactsAdapter.add(mContacts.sorted())
             mFastAdapter = FastAdapter.with(mContactsAdapter)
 
             mLinearLayoutManager = LinearLayoutManager(it.baseContext)
@@ -66,7 +66,8 @@ class Chu(
     private fun initSearchView() {
         mFastAdapter.onClickListener = { _, _, item, _ ->
             mContactClickListener.onContactClickListener(item)
-            false
+            dismiss()
+            true
         }
 
         mSearchEditText.addTextChangedListener(object : TextWatcher {

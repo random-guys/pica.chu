@@ -7,7 +7,7 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 import de.hdodenhof.circleimageview.CircleImageView
 
-open class Contact() : AbstractItem<Contact.ViewHolder>(), Parcelable {
+class Contact() : AbstractItem<Contact.ViewHolder>(), Parcelable, Comparable<Contact> {
 
     lateinit var name: String
     lateinit var number: String
@@ -29,7 +29,9 @@ open class Contact() : AbstractItem<Contact.ViewHolder>(), Parcelable {
 
     override fun getViewHolder(v: View): ViewHolder = ViewHolder(v)
 
-    open class ViewHolder(itemView: View) : FastAdapter.ViewHolder<Contact>(itemView) {
+    override fun compareTo(other: Contact): Int = if (contactType == ContactType.Server) -1 else 1
+
+    class ViewHolder(itemView: View) : FastAdapter.ViewHolder<Contact>(itemView) {
         private val iconView: TitleLabelIconView = itemView.findViewById(R.id.contact)
         private val logoImageView = itemView.findViewById<CircleImageView>(R.id.logo_icon)
 
