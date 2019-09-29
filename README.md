@@ -10,6 +10,15 @@ This is due to the fact that each device rolls out their contact picker.
 
 ![Picachu](https://media.giphy.com/media/WodomZmSBBMQQYSnxs/giphy.gif)
 
+## Installation
+Add the dependency :
+
+```gradle
+dependencies {
+    implementation 'com.random-guys:pica:0.1.1'
+}
+```
+
 ## Usage
 
 Add these permissions to `AndroidManifest.xml`
