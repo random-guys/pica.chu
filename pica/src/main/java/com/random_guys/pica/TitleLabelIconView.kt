@@ -10,12 +10,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import com.github.siyamed.shapeimageview.RoundedImageView
 
 class TitleLabelIconView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
     private val mTitleTextView: TextView
     private val mLabelTextView: TextView
-    private val mIconImageView: ImageView
+    val mIconImageView: RoundedImageView
     private val mInitialsTextView: TextView
 
 
@@ -33,7 +34,7 @@ class TitleLabelIconView(context: Context, attrs: AttributeSet) : ConstraintLayo
         LayoutInflater.from(context).inflate(R.layout.title_label_icon_view, this, true)
         val root = this as ConstraintLayout
 
-        mIconImageView = root.findViewById(R.id.icon) as ImageView
+        mIconImageView = root.findViewById(R.id.icon) as RoundedImageView
         mIconImageView.setImageDrawable(drawable)
 
         mInitialsTextView = root.findViewById(R.id.initials) as TextView
