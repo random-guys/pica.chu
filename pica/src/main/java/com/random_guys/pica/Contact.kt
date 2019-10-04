@@ -3,6 +3,8 @@ package com.random_guys.pica
 import android.os.Parcel
 import android.os.Parcelable
 import android.view.View
+import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 import de.hdodenhof.circleimageview.CircleImageView
@@ -12,6 +14,7 @@ class Contact() : AbstractItem<Contact.ViewHolder>(), Parcelable, Comparable<Con
     lateinit var name: String
     lateinit var number: String
     lateinit var contactType: ContactType
+    var profilePicture: String = ""
 
     override val layoutRes: Int = R.layout.contact_item
 
@@ -41,6 +44,22 @@ class Contact() : AbstractItem<Contact.ViewHolder>(), Parcelable, Comparable<Con
             iconView.initials = item.name.initials()
             logoImageView.visibility =
                 if (item.contactType == ContactType.Local) View.INVISIBLE else View.VISIBLE
+
+            if (item.profilePicture.isNotEmpty()) {
+                Glide.with(itemView.context).load(item.profilePicture).into(iconView.mIconImageView)
+                iconView.initials = ""
+                iconView.mIconImageView.alpha = 1f
+            } else {
+                iconView.initials = item.name.initials()
+                iconView.mIconImageView.alpha = 0.3f
+                when {
+                    item.name.initials().contains(Regex("[A-B]")) -> iconView.mIconImageView.setImageDrawable(
+                        ContextCompat.getDrawable(itemView.context, R.drawable.transaction_initials))
+                    item.name.initials().contains(Regex("[C-H]")) -> iconView.mIconImageView.setImageDrawable(
+                        ContextCompat.getDrawable(itemView.context, R.drawable.transaction_initials_peachy_pink))
+                    else -> iconView.mIconImageView.setImageDrawable(ContextCompat.getDrawable(itemView.context, R.drawable.transaction_initials_carolina_blue))
+                }
+            }
         }
 
         override fun unbindView(item: Contact) {}
