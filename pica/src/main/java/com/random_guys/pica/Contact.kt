@@ -15,6 +15,7 @@ class Contact() : AbstractItem<Contact.ViewHolder>(), Parcelable, Comparable<Con
     lateinit var number: String
     lateinit var contactType: ContactType
     var profilePicture: String = ""
+    var bankCode: String = ""
 
     override val layoutRes: Int = R.layout.contact_item
 
