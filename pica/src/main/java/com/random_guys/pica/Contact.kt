@@ -50,10 +50,10 @@ class Contact() : AbstractItem<Contact.ViewHolder>(), Parcelable, Comparable<Con
             logoImageView.visibility =
                 if (item.contactType == ContactType.Local) View.INVISIBLE else View.VISIBLE
 
-            //item.profilePicture = "https://res.cloudinary.com/gomoney/image/upload/v1585223385/banks/gtb.png"
+            item.profilePicture = "https://res.cloudinary.com/gomoney/image/upload/v1585223385/banks/access.png"
             if (item.profilePicture.isNotEmpty()) {
                 var requestOptions = RequestOptions()
-                requestOptions = requestOptions.transforms(CenterCrop(), RoundedCorners(16))
+                requestOptions = requestOptions.transforms(CenterCrop(), RoundedCorners(10)).centerInside()
                 Glide.with(itemView.context).load(item.profilePicture).apply(requestOptions).into(iconView.mIconImageView)
                 iconView.initials = ""
                 iconView.mIconImageView.alpha = 1f
