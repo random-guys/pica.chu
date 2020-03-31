@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp">
 
-    <com.github.siyamed.shapeimageview.RoundedImageView
+    <ImageView
             android:id="@+id/icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -14,10 +14,7 @@
             android:gravity="center_vertical|center_horizontal"
             android:textColor="@color/fruity_green"
             android:textSize="27sp"
-            app:siRadius="4dp"
-            app:siBorderWidth="2dp"
-            app:siBorderColor="@color/white"
-            app:siSquare="true"
+            android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -5,9 +5,13 @@ import android.os.Parcelable
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.items.AbstractItem
 import de.hdodenhof.circleimageview.CircleImageView
+
 
 class Contact() : AbstractItem<Contact.ViewHolder>(), Parcelable, Comparable<Contact> {
 
@@ -46,8 +50,11 @@ class Contact() : AbstractItem<Contact.ViewHolder>(), Parcelable, Comparable<Con
             logoImageView.visibility =
                 if (item.contactType == ContactType.Local) View.INVISIBLE else View.VISIBLE
 
+            //item.profilePicture = "https://res.cloudinary.com/gomoney/image/upload/v1585223385/banks/gtb.png"
             if (item.profilePicture.isNotEmpty()) {
-                Glide.with(itemView.context).load(item.profilePicture).into(iconView.mIconImageView)
+                var requestOptions = RequestOptions()
+                requestOptions = requestOptions.transforms(CenterCrop(), RoundedCorners(16))
+                Glide.with(itemView.context).load(item.profilePicture).apply(requestOptions).into(iconView.mIconImageView)
                 iconView.initials = ""
                 iconView.mIconImageView.alpha = 1f
             } else {

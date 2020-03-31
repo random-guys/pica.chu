@@ -16,7 +16,7 @@ class TitleLabelIconView(context: Context, attrs: AttributeSet) : ConstraintLayo
 
     private val mTitleTextView: TextView
     private val mLabelTextView: TextView
-    val mIconImageView: RoundedImageView
+    val mIconImageView: ImageView
     private val mInitialsTextView: TextView
 
 
@@ -34,7 +34,7 @@ class TitleLabelIconView(context: Context, attrs: AttributeSet) : ConstraintLayo
         LayoutInflater.from(context).inflate(R.layout.title_label_icon_view, this, true)
         val root = this as ConstraintLayout
 
-        mIconImageView = root.findViewById(R.id.icon) as RoundedImageView
+        mIconImageView = root.findViewById(R.id.icon) as ImageView
         mIconImageView.setImageDrawable(drawable)
 
         mInitialsTextView = root.findViewById(R.id.initials) as TextView
