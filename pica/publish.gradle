@@ -15,7 +15,7 @@ publish {
     userOrg = 'random-guys'
     groupId = 'com.random-guys'
     artifactId = 'pica'
-    publishVersion = '0.1.4'
+    publishVersion = '0.1.5'
     desc = 'GoMoney Contact Picker'
     bintrayUser = BINTRAY_USER
     bintrayKey = BINTRAY_API_KEY
