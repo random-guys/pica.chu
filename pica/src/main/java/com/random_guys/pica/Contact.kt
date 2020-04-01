@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.mikepenz.fastadapter.FastAdapter
@@ -52,9 +53,7 @@ class Contact() : AbstractItem<Contact.ViewHolder>(), Parcelable, Comparable<Con
 
             //item.profilePicture = "https://res.cloudinary.com/gomoney/image/upload/v1585223385/banks/access.png"
             if (item.profilePicture.isNotEmpty()) {
-                var requestOptions = RequestOptions()
-                requestOptions = requestOptions.transforms(CenterCrop(), RoundedCorners(10)).centerInside()
-                Glide.with(itemView.context).load(item.profilePicture).apply(requestOptions).into(iconView.mIconImageView)
+                Glide.with(itemView.context).load(item.profilePicture).transform(CenterInside(), RoundedCorners(10)).into(iconView.mIconImageView)
                 iconView.initials = ""
                 iconView.mIconImageView.alpha = 1f
             } else {
