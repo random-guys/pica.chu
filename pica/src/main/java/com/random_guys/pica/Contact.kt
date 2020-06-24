@@ -46,8 +46,16 @@ class Contact() : AbstractItem<Contact.ViewHolder>(), Parcelable, Comparable<Con
 
         override fun bindView(item: Contact, payloads: MutableList<Any>) {
             iconView.title = item.name
-            iconView.label = item.number.trim()
             iconView.initials = item.name.initials()
+            if (item.contactType == ContactType.Local) {
+                logoImageView.visibility = View.INVISIBLE
+                iconView.label = item.number
+            } else {
+                val phoneNumber = item.number.trim().substring(0, 6)
+                val maskedNumber = "*".repeat(5)
+                iconView.label = "$phoneNumber$maskedNumber"
+                logoImageView.visibility = View.VISIBLE
+            }
             logoImageView.visibility =
                 if (item.contactType == ContactType.Local) View.INVISIBLE else View.VISIBLE
 
