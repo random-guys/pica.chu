@@ -52,6 +52,7 @@ class Contact() : AbstractItem<Contact.ViewHolder>(), Parcelable, Comparable<Con
                 logoImageView.visibility = View.INVISIBLE
                 iconView.label = item.number
             } else {
+                iconView.label = ""
                 iconView.mTitleTextView.apply {
                     val lp = layoutParams as ViewGroup.MarginLayoutParams
                     lp.bottomMargin = 0
