@@ -17,4 +17,5 @@
 
     <dimen name="suggestion_body_text_size">18sp</dimen>
     <dimen name="search_bar_text_size">16sp</dimen>
+    <dimen name="custom_title_text_view_title">18sp</dimen>
 </resources>
