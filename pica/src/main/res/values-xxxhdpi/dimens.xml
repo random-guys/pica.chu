@@ -1,17 +1,3 @@
 <resources>
-	<dimen name="search_bar_search_input_left_margin">60dp</dimen>
-	<dimen name="search_bar_left_icon_left_margin">12dp</dimen>
-	<dimen name="search_bar_right_icon_right_margin">12dp</dimen>
-	<dimen name="search_view_inset">12dp</dimen>
-	<dimen name="search_bar_search_input_right_margin">204dp</dimen>
-	<dimen name="search_bar_filter_section_marin_left">192dp</dimen>
-	<dimen name="search_view_corner_radius">9dp</dimen>
-	<dimen name="square_button_icon_size">72dp</dimen>
-	<dimen name="square_button_padding">36dp</dimen>
-	<dimen name="square_button_size">144dp</dimen>
-	<dimen name="search_bar_height">144dp</dimen>
-	<dimen name="text_content_margin">48dp</dimen>
-	<dimen name="search_bar_text_size">48sp</dimen>
-	<dimen name="suggestion_body_text_size">54sp</dimen>
 	<dimen name="custom_title_text_view_title">18sp</dimen>
 </resources>
