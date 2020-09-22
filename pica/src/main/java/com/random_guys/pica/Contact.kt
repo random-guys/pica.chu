@@ -3,6 +3,7 @@ package com.random_guys.pica
 import android.os.Parcel
 import android.os.Parcelable
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -51,9 +52,11 @@ class Contact() : AbstractItem<Contact.ViewHolder>(), Parcelable, Comparable<Con
                 logoImageView.visibility = View.INVISIBLE
                 iconView.label = item.number
             } else {
-                val phoneNumber = item.number.trim().substring(0, 6)
-                val maskedNumber = "*".repeat(5)
-                iconView.label = "$phoneNumber$maskedNumber"
+                iconView.mTitleTextView.apply {
+                    val lp = layoutParams as ViewGroup.MarginLayoutParams
+                    lp.bottomMargin = 0
+                    this.layoutParams =lp
+                }
                 logoImageView.visibility = View.VISIBLE
             }
             logoImageView.visibility =

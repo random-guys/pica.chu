@@ -14,8 +14,8 @@ import com.github.siyamed.shapeimageview.RoundedImageView
 
 class TitleLabelIconView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
-    private val mTitleTextView: TextView
-    private val mLabelTextView: TextView
+    val mTitleTextView: TextView
+    val mLabelTextView: TextView
     val mIconImageView: ImageView
     private val mInitialsTextView: TextView
 
