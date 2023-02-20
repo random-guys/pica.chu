@@ -3,16 +3,17 @@ package com.random_guys.picker
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.random_guys.pica.Chu
-import com.random_guys.pica.Contact
-import com.random_guys.pica.Pica
+import com.random_guys.pica.*
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), Chu.ContactClickListener {
+class MainActivity : AppCompatActivity(), Chu.ContactClickListener,
+    ContactsPermissionHandler by ContactsPermissionHandlerImpl() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        checkAndHandleContactsPermission(this)
 
         button.setOnClickListener {
             val mMainContacts = ArrayList<Contact>()

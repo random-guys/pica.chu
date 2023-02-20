@@ -19,5 +19,5 @@ publish {
     desc = 'GoMoney Contact Picker'
     bintrayUser = BINTRAY_USER
     bintrayKey = BINTRAY_API_KEY
-    repository = 'https://github.com/random-guys/pica.load'
+    website = 'https://github.com/random-guys/pica.load'
 }
