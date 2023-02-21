@@ -1,16 +1,13 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: "com.jfrog.bintray"
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
-
+    compileSdkVersion 33
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -28,12 +25,15 @@ android {
         sourceCompatibility 1.8
     }
 }
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation "androidx.activity:activity-ktx:1.6.1"
+    implementation "androidx.fragment:fragment-ktx:1.5.5"
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation "androidx.core:core-ktx:1.0.2"
     implementation 'com.karumi:dexter:4.2.0'
@@ -46,8 +46,22 @@ dependencies {
     api "com.mikepenz:fastadapter-extensions-scroll:4.0.1"
 }
 
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = 'com.random-guys'
+                artifactId = 'pica'
+                version = '0.1.9'
+
+                afterEvaluate {
+                    from components.release
+                }
+            }
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }
-
-apply from: 'publish.gradle'
