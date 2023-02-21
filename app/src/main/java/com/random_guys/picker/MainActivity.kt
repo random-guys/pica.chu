@@ -13,18 +13,20 @@ class MainActivity : AppCompatActivity(), Chu.ContactClickListener,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        checkAndHandleContactsPermission(this)
+        initContactsPermissionHandler(this)
 
         button.setOnClickListener {
-            val mMainContacts = ArrayList<Contact>()
+            checkAndHandleContactsPermission {
+                val mMainContacts = ArrayList<Contact>()
 
-            // load contacts
-            val pica = Pica(this)
-            pica.load { contacts -> mMainContacts.addAll(contacts) }
+                // load contacts
+                val pica = Pica(this)
+                pica.load { contacts -> mMainContacts.addAll(contacts) }
 
-            // open contacts picker
-            val chooser = Chu(mMainContacts, this)
-            chooser.show(supportFragmentManager, "")
+                // open contacts picker
+                val chooser = Chu(mMainContacts, this)
+                chooser.show(supportFragmentManager, "")
+            }
         }
     }
 
