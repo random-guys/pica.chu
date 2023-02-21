@@ -4,6 +4,7 @@ import android.database.Cursor
 import android.provider.ContactsContract
 import android.provider.ContactsContract.CommonDataKinds.Phone
 import androidx.activity.ComponentActivity
+import androidx.core.database.getStringOrNull
 import androidx.loader.content.CursorLoader
 
 
@@ -43,7 +44,8 @@ class Pica(private val activity: ComponentActivity) {
                 if (hasNumber.not()) cursor.moveToNext()
 
                 val contactDisplayName = cursor.getString(nameIndex)
-                val number = cursor.getString(contactNumberColumnIndex).formatPhoneNumber()
+                val number =
+                    cursor.getStringOrNull(contactNumberColumnIndex)?.formatPhoneNumber().orEmpty()
 
                 if (number.isNigerianNumber()) {
                     val contact = Contact()
