@@ -42,16 +42,15 @@ class ContactsPermissionHandlerImpl :
     override val hasContactsPermission: Boolean
         get() = (ContextCompat.checkSelfPermission(
             componentActivity, Manifest.permission.READ_CONTACTS
-        ) != PackageManager.PERMISSION_GRANTED)
+        ) == PackageManager.PERMISSION_GRANTED)
 
     override fun checkAndHandleContactsPermission(onGrantedCallback: () -> Unit) {
         this.onGrantedCallback = onGrantedCallback
 
         if (hasContactsPermission) {
-            permissionLauncher.launch(Manifest.permission.READ_CONTACTS)
-        } else {
             onGrantedCallback()
+        } else {
+            permissionLauncher.launch(Manifest.permission.READ_CONTACTS)
         }
     }
-
 }
