@@ -20,7 +20,7 @@ interface ContactsPermissionHandler {
      */
     val hasContactsPermission: Boolean
 
-    fun checkAndHandleContactsPermission(onGrantedCallback: () -> Unit)
+    fun checkAndHandleContactsPermission(onGrantedCallback: () -> Unit, onDenyCallback: () -> Unit)
 }
 
 class ContactsPermissionHandlerImpl :
@@ -28,6 +28,7 @@ class ContactsPermissionHandlerImpl :
 
     private lateinit var componentActivity: ComponentActivity
     private lateinit var onGrantedCallback: () -> Unit
+    private lateinit var onDenyCallBack: () -> Unit
 
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
 
@@ -35,7 +36,7 @@ class ContactsPermissionHandlerImpl :
         this.componentActivity = activity
         this.permissionLauncher =
             componentActivity.registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-                if (isGranted) onGrantedCallback()
+                if (isGranted) onGrantedCallback() else onDenyCallBack()
             }
     }
 
@@ -44,8 +45,12 @@ class ContactsPermissionHandlerImpl :
             componentActivity, Manifest.permission.READ_CONTACTS
         ) == PackageManager.PERMISSION_GRANTED)
 
-    override fun checkAndHandleContactsPermission(onGrantedCallback: () -> Unit) {
+    override fun checkAndHandleContactsPermission(
+        onGrantedCallback: () -> Unit,
+        onDenyCallback: () -> Unit
+    ) {
         this.onGrantedCallback = onGrantedCallback
+        this.onDenyCallBack = onDenyCallback
 
         if (hasContactsPermission) {
             onGrantedCallback()
