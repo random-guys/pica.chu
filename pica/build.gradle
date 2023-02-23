@@ -50,8 +50,8 @@ afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                groupId = 'com.random-guys'
-                artifactId = 'pica'
+                groupId = 'com.github.random-guys'
+                artifactId = 'pica.chu'
                 version = '0.2.1'
 
                 afterEvaluate {
