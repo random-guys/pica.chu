@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), Chu.ContactClickListener,
         initContactsPermissionHandler(this)
 
         button.setOnClickListener {
-            checkAndHandleContactsPermission {
+            checkAndHandleContactsPermission(onGrantedCallback = {
                 val mMainContacts = ArrayList<Contact>()
 
                 // load contacts
@@ -26,7 +26,9 @@ class MainActivity : AppCompatActivity(), Chu.ContactClickListener,
                 // open contacts picker
                 val chooser = Chu(mMainContacts, this)
                 chooser.show(supportFragmentManager, "")
-            }
+            }, onDenyCallback = {
+                Toast.makeText(this, "Denied!", Toast.LENGTH_LONG).show()
+            })
         }
     }
 

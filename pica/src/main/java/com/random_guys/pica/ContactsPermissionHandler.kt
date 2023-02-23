@@ -5,9 +5,14 @@ import android.content.pm.PackageManager
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 interface ContactsPermissionHandler {
+
+    val permission: String
+        get() = Manifest.permission.READ_CONTACTS
+
     /**
      * Call this function in onCreate
      */
@@ -20,7 +25,13 @@ interface ContactsPermissionHandler {
      */
     val hasContactsPermission: Boolean
 
-    fun checkAndHandleContactsPermission(onGrantedCallback: () -> Unit, onDenyCallback: () -> Unit)
+    val shouldShowRequestPermissionRationale: Boolean
+
+    fun checkAndHandleContactsPermission(
+        educationUiCallback: ((() -> Unit) -> Unit)? = null,
+        onGrantedCallback: () -> Unit,
+        onDenyCallback: () -> Unit
+    )
 }
 
 class ContactsPermissionHandlerImpl :
@@ -42,10 +53,16 @@ class ContactsPermissionHandlerImpl :
 
     override val hasContactsPermission: Boolean
         get() = (ContextCompat.checkSelfPermission(
-            componentActivity, Manifest.permission.READ_CONTACTS
+            componentActivity, permission
         ) == PackageManager.PERMISSION_GRANTED)
 
+    override val shouldShowRequestPermissionRationale: Boolean
+        get() = ActivityCompat.shouldShowRequestPermissionRationale(
+            componentActivity, permission
+        )
+
     override fun checkAndHandleContactsPermission(
+        educationUiCallback: ((() -> Unit) -> Unit)?,
         onGrantedCallback: () -> Unit,
         onDenyCallback: () -> Unit
     ) {
@@ -55,7 +72,20 @@ class ContactsPermissionHandlerImpl :
         if (hasContactsPermission) {
             onGrantedCallback()
         } else {
-            permissionLauncher.launch(Manifest.permission.READ_CONTACTS)
+            permissionLauncher.launch(permission)
+        }
+
+        when {
+            hasContactsPermission -> {
+                onGrantedCallback()
+            }
+            shouldShowRequestPermissionRationale -> {
+                if (educationUiCallback == null) permissionLauncher.launch(permission)
+                else educationUiCallback { permissionLauncher.launch(permission) }
+            }
+            else -> {
+                permissionLauncher.launch(permission)
+            }
         }
     }
 }
