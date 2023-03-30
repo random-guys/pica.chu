@@ -43,14 +43,14 @@ class Pica(private val activity: ComponentActivity) {
                 // Contact doesn't have any number's skip it.
                 if (hasNumber.not()) cursor.moveToNext()
 
-                val contactDisplayName = cursor.getString(nameIndex)
+                val contactDisplayName = cursor.getStringOrNull(nameIndex)
                 val number =
                     cursor.getStringOrNull(contactNumberColumnIndex)?.formatPhoneNumber().orEmpty()
 
                 if (number.isNigerianNumber()) {
                     val contact = Contact()
                     contact.number = number.trim()
-                    contact.name = contactDisplayName.trim()
+                    contact.name = contactDisplayName?.trim().orEmpty()
                     contact.contactType = Contact.ContactType.Local
                     contactsMap[number] = contact
                 }
