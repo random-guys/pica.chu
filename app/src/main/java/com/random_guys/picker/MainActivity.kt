@@ -1,10 +1,10 @@
 package com.random_guys.picker
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.random_guys.pica.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), Chu.ContactClickListener,
     ContactsPermissionHandler by ContactsPermissionHandlerImpl() {
@@ -14,6 +14,8 @@ class MainActivity : AppCompatActivity(), Chu.ContactClickListener,
         setContentView(R.layout.activity_main)
 
         initContactsPermissionHandler(this)
+
+        val button = findViewById<Button>(R.id.button)
 
         button.setOnClickListener {
             checkAndHandleContactsPermission(onGrantedCallback = {

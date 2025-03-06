@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'maven-publish'
 
 android {
-    namespace "com.random_guys.picker"
+    namespace "com.random_guys.pica"
     compileSdkVersion 33
     defaultConfig {
         minSdkVersion 19
@@ -20,9 +20,16 @@ android {
         }
     }
 
+    kotlinOptions {
+        jvmTarget = "17"
+        freeCompilerArgs += [
+                "-Xopt-in=kotlin.RequiresOptIn",
+        ]
+    }
+
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        targetCompatibility 17
+        sourceCompatibility 17
     }
 }
 
