@@ -28,9 +28,12 @@ class Pica(private val activity: ComponentActivity) {
             Phone.DISPLAY_NAME + " ASC" // the sort order
         ).loadInBackground()
 
-        if (cursor == null || cursor.count <= 0) callback(ArrayList())
+        if (cursor == null || cursor.count <= 0) {
+            callback(ArrayList())
+            return
+        }
 
-        val contactsMap = HashMap<String, Contact>(cursor?.count!!)
+        val contactsMap = HashMap<String, Contact>(cursor.count)
 
         val contactNumberColumnIndex = cursor.getColumnIndex(Phone.NUMBER)
         val nameIndex = cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME)

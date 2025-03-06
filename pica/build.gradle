@@ -1,9 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'maven-publish'
 
 android {
+    namespace "com.random_guys.picker"
     compileSdkVersion 33
     defaultConfig {
         minSdkVersion 19
@@ -52,7 +52,7 @@ afterEvaluate {
             release(MavenPublication) {
                 groupId = 'com.github.random-guys'
                 artifactId = 'pica.chu'
-                version = '0.2.2'
+                version = '0.2.3'
 
                 afterEvaluate {
                     from components.release
