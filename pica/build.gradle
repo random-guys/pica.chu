@@ -59,7 +59,7 @@ afterEvaluate {
             release(MavenPublication) {
                 groupId = 'com.github.random-guys'
                 artifactId = 'pica.chu'
-                version = '0.2.3'
+                version = '0.2.4'
 
                 afterEvaluate {
                     from components.release
