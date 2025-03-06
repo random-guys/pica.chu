@@ -28,9 +28,12 @@ class Pica(private val activity: ComponentActivity) {
             Phone.DISPLAY_NAME + " ASC" // the sort order
         ).loadInBackground()
 
-        if (cursor == null || cursor.count <= 0) callback(ArrayList())
+        if (cursor == null || cursor.count <= 0) {
+            callback(ArrayList())
+            return
+        }
 
-        val contactsMap = HashMap<String, Contact>(cursor?.count!!)
+        val contactsMap = HashMap<String, Contact>(cursor.count)
 
         val contactNumberColumnIndex = cursor.getColumnIndex(Phone.NUMBER)
         val nameIndex = cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME)
@@ -43,14 +46,14 @@ class Pica(private val activity: ComponentActivity) {
                 // Contact doesn't have any number's skip it.
                 if (hasNumber.not()) cursor.moveToNext()
 
-                val contactDisplayName = cursor.getString(nameIndex)
+                val contactDisplayName = cursor.getStringOrNull(nameIndex)
                 val number =
                     cursor.getStringOrNull(contactNumberColumnIndex)?.formatPhoneNumber().orEmpty()
 
                 if (number.isNigerianNumber()) {
                     val contact = Contact()
                     contact.number = number.trim()
-                    contact.name = contactDisplayName.trim()
+                    contact.name = contactDisplayName?.trim().orEmpty()
                     contact.contactType = Contact.ContactType.Local
                     contactsMap[number] = contact
                 }
